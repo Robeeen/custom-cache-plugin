@@ -24,4 +24,15 @@
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
- 
+//Exit if not access directly
+if ( ! defined( 'ABSPATH' ) ) { die( 'Invalid request.' );}
+
+//plugin Versions
+define( 'custom-cache-plugin', '1.0.0' );
+
+//paths
+define( 'CACHE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'CACHE_PLUGIN_URL',  plugin_dir_url(__FILE__) );
+
+require_once( CACHE_PLUGIN_DIR . 'includes/class-custom-cache-plugin.php');
+
