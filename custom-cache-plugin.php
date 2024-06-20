@@ -36,3 +36,9 @@ define( 'CACHE_PLUGIN_URL',  plugin_dir_url(__FILE__) );
 
 require_once( CACHE_PLUGIN_DIR . 'includes/class-custom-cache-plugin.php');
 
+//Plugin Activation 
+// register_activation_hook( __FILE__, 'custom_cache_plugin');
+
+// function custom_cache_plugin(){
+//     $custom_cache = new Custom_Cache();
+// }
