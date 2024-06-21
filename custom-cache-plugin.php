@@ -38,5 +38,6 @@ require_once( CACHE_PLUGIN_DIR . 'includes/class-custom-cache-plugin.php');
 register_activation_hook( __FILE__, 'custom_cache_plugin');
 
 function custom_cache_plugin(){
-    $custom_cache = new Custom_Cache();
+   // $custom_cache = new Custom_Cache();
 }
+$custom_cache = new Custom_Cache();

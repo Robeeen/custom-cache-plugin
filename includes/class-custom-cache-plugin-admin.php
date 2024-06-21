@@ -21,8 +21,8 @@ class Custom_Cache_Plugin_Admin{
     <div class="wrap">
         <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
             <form action="options.php" method="post">
-                <?php settings_field('cache_plugin_settings_group');?>
-                <?php do_settings_section('custom_cache_plugin_settings');?>
+                <?php settings_fields('cache_plugin_settings_group');?>
+                <?php do_settings_sections('custom_cache_plugin_settings');?>
                 <?php submit_button('Save Settings');?>
             </form>
     </div>        
@@ -57,7 +57,8 @@ class Custom_Cache_Plugin_Admin{
 
       public function cache_plugin_field_callback(){
         $value = get_option('cache_plugin_enable_cache');
-        
+        echo '<input type="checkbox" name="cache_plugin_enable_cache" value="1"' . checked($value, 1, false). '/>';
+
       }
     }
 }
