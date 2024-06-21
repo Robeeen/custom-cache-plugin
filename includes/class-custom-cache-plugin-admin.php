@@ -38,26 +38,26 @@ class Custom_Cache_Plugin_Admin{
         //For Settings section   
         add_settings_section(
                 'cache_plugin_settings_section', //ID
-                'Setting Section', //Title
+                __('Settings Section'), //Title
                 array($this, 'cache_plugin_section_callback'), //callback
                 'custom_cache_plugin_settings' //page
             );
         //For Settings Field
         add_settings_field(
                 'cache_plugin_enable_cache', //id
-                'Enable Cache', //title
+                __('Enable Cache'), //title
                 array($this, 'cache_plugin_field_callback'), //callback
                 'custom_cache_plugin_settings', //page
                 'cache_plugin_settings_section' //section
             );
       }
       public function cache_plugin_section_callback(){
-        print 'Enter your settings below:';
+        print 'Click on the CheckBox to enable Cache';
       }
 
       public function cache_plugin_field_callback(){
-        //$value = get_option('cache_plugin_enable_cache');
-        echo "<input type='checkbox' name='cache_plugin_enable_cache' />";
+        $value = get_option('cache_plugin_enable_cache');
+        echo "<input type='checkbox' name='cache_plugin_enable_cache' value='1' " . checked($value, 1, false) . " />";
       }
     }
 }
