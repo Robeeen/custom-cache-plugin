@@ -4,7 +4,7 @@ if(!class_exists('Custom_Cache_Plugin_Admin')){
 class Custom_Cache_Plugin_Admin{
     public function __construct(){
         add_action( 'admin_menu', array($this, 'cache_plugin_menu') );
-        add_action( 'admin_init', array($this, 'register_section') );
+        add_action( 'admin_init', array($this, 'register_settings_init') );
     }
 
     public function cache_plugin_menu(){
@@ -19,15 +19,45 @@ class Custom_Cache_Plugin_Admin{
 
     public function settings_page(){?>
     <div class="wrap">
-                <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
-                    <form action="options.php" method="post">
-                        <?php settings_field('cache-plugin-settings-group');?>
-                        <?php do_settings_section('custom-cache-plugin-settings');?>
-                        <?php submit_button('Save Settings');?>
-                    </form>
+        <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
+            <form action="options.php" method="post">
+                <?php settings_field('cache_plugin_settings_group');?>
+                <?php do_settings_section('custom_cache_plugin_settings');?>
+                <?php submit_button('Save Settings');?>
+            </form>
     </div>        
     <?php
-        }
     }
 
+    public function register_settings_init(){
+        //For settings
+            register_setting(
+              'cache_plugin_settings_group',
+              'cache_plugin_enable_cache',  
+            );   
+        //For Settings section   
+            add_settings_section(
+                'cache_plugin_settings_section',
+                __('Setting Section', 'cache_plugin'),
+                [$this, 'cache_plugin_section_callback'],
+                'cache_plugin_settings'
+            );
+        //For Settings Field
+            add_settings_section(
+                'cache_plugin_enable_cache',
+                'Enable Cache',
+                [$this, 'cache_plugin_field_callback'],
+                'cache_plugin_settings',
+                'cache_plugin_settings_section'
+            );
+      }
+      public function cache_plugin_section_callback(){
+        echo "<p>This ist estes </p>";
+      }
+
+      public function cache_plugin_field_callback(){
+        $value = get_option('cache_plugin_enable_cache');
+        
+      }
+    }
 }
