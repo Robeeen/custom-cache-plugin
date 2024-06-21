@@ -1,6 +1,8 @@
 <?php
 
+if(!class_exists('Custom_Cache')){
 class Custom_Cache{
+    
     public function __construct(){
         $this->load_classes();
         $this->init();
@@ -10,10 +12,11 @@ class Custom_Cache{
         require_once('class-custom-cache-plugin-admin' );
         require_once('class-custom-cache-plugin-cache' );
     }
-    
+
     public function init(){
         $admin = new Custom_Cache_Plugin_Admin();
         $cache = new Custom_Cahe_plugin_Cache();
     }
+}
 
 }

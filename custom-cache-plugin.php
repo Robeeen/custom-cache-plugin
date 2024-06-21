@@ -16,9 +16,7 @@
  * Requires at least: 4.9
  * Requires PHP: 5.6 or later
  *
- * This program is free software; you can redistribute it and/or modify it under the terms of the GNU
- * General Public License version 2, as published by the Free Software Foundation. You may NOT assume
- * that you can use any other version of the GPL.
+ * Reference:https://www.youtube.com/watch?v=JieUhUR4x94
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -37,8 +35,8 @@ define( 'CACHE_PLUGIN_URL',  plugin_dir_url(__FILE__) );
 require_once( CACHE_PLUGIN_DIR . 'includes/class-custom-cache-plugin.php');
 
 //Plugin Activation 
-// register_activation_hook( __FILE__, 'custom_cache_plugin');
+register_activation_hook( __FILE__, 'custom_cache_plugin');
 
-// function custom_cache_plugin(){
-//     $custom_cache = new Custom_Cache();
-// }
+function custom_cache_plugin(){
+    $custom_cache = new Custom_Cache();
+}
