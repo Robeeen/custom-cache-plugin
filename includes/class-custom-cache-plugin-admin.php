@@ -3,8 +3,9 @@
 if(!class_exists('Custom_Cache_Plugin_Admin')){
 class Custom_Cache_Plugin_Admin{
     public function __construct(){
-        add_action( 'admin_menu', array( $this, 'cache_plugin_menu' ) );
-        add_action( 'admin_init', array( $this, 'register_settings_init' ) );
+        add_action( 'admin_menu', array( $this, 'cache_plugin_menu' ) ); //To create Page, Menu & Capability under Settings.
+        add_action( 'admin_init', array( $this, 'register_settings_init' ) );//To create and add section,fields
+        add_action( 'admin_bar_menu', array( $this, 'clear_cache_link'), 999); //Add link to Admin menu bar
     }
 
     public function cache_plugin_menu(){
@@ -12,12 +13,16 @@ class Custom_Cache_Plugin_Admin{
             'Custom Cache Plugin Settings', // Page title
             'Custom Cache Plugin',  // Menu title
             'manage_options', // Capability
-            'custom-cache-plugin', // Menu slug
-            array( $this, 'settings_page' ) // Callback function
+            'custom-cache-plugin', // page appeared on URL "page=custom-cache-plugin"
+            array( $this, 'settings_page' ) // Callback function to add Capabilities
         );
     }
 
-    public function settings_page(){?>
+    public function settings_page(){
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        } 
+        ?>
     <div class="wrap">
         <h2><?php echo esc_html(get_admin_page_title()); ?></h2>
             <form action="options.php" method="post">
@@ -58,6 +63,18 @@ class Custom_Cache_Plugin_Admin{
       public function cache_plugin_field_callback(){
         $value = get_option('cache_plugin_enable_cache');
         echo "<input type='checkbox' name='cache_plugin_enable_cache' value='1' " . checked($value, 1, false) . " />";
+      }
+      
+      public function clear_cache_link($admin_bar){
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        } 
+        $admin_bar->add_menu([
+            'id' => 'custom_cache_plugin_clear',
+            'title' => __('Clear Cache'),
+            'href' => wp_nonce_url(admin_url('admin-post.php?action=custom_cache_plugin_clear'), 'custom_cache_plugin_clear'),
+        ]);
+
       }
     }
 }
