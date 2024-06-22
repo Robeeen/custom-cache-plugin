@@ -102,7 +102,7 @@ class Custom_Cache_Plugin_Admin{
         exit;
       }
 
-      public function delete_directory(){
+      public function delete_directory($directory){
         if(!is_dir($directory)){
             return true;
         }
