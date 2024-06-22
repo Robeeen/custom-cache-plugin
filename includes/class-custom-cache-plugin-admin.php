@@ -6,6 +6,7 @@ class Custom_Cache_Plugin_Admin{
         add_action( 'admin_menu', array( $this, 'cache_plugin_menu' ) ); //To create Page, Menu & Capability under Settings.
         add_action( 'admin_init', array( $this, 'register_settings_init' ) );//To create and add section,fields
         add_action( 'admin_bar_menu', array( $this, 'clear_cache_link'), 999); //Add link to Admin menu bar
+        add_action( 'admin_post_custom_cache_plugin_clear', array( $this, 'handle_clear_cache_req'));
     }
 
     public function cache_plugin_menu(){
@@ -77,5 +78,51 @@ class Custom_Cache_Plugin_Admin{
         ]);
 
       }
+
+      public function handle_clear_cache_req(){
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        } 
+
+        $this->clear_cache();
+        wp_redirect(wp_get_referer());
+        exit;
+
+      }
+
+      public function clear_cache(){
+        if (!current_user_can('manage_options')) {
+            wp_die(__('You do not have sufficient permissions to access this page.'));
+        } 
+
+        $cache_directory = WP_CONTENT_DIR . '/plugins/custom-cache-plugin/cache/';
+        $this->delete_directory($cache_directory);
+
+        wp_redirect(wp_get_referer());
+        exit;
+      }
+
+      public function delete_directory(){
+        if(!is_dir($directory)){
+            return true;
+        }
+
+        $files = array_diff(scandir($directory), ['.', '..']);
+
+        foreach($files as $file){
+            $path =   $directory . '/' . $file;
+        }
+
+        if(is_dir($path)){
+            $this->delete_directory($path);
+        }else{
+            unlink($path);
+        }
+
+        return rmdir($directory);
+
+      }
+
+    
     }
 }
