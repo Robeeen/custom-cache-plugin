@@ -65,6 +65,7 @@ class Custom_Cache_Plugin_Admin{
         echo "<input type='checkbox' name='cache_plugin_enable_cache' value='1' " . checked($value, 1, false) . " />";
       }
       
+      //Create a admin bar menu for "Clear Cache"
       public function clear_cache_link($admin_bar){
         if (!current_user_can('manage_options')) {
             wp_die(__('You do not have sufficient permissions to access this page.'));
