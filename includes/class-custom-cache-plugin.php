@@ -9,12 +9,12 @@ if(!class_exists('Custom_Cache')){
             $this->init();
         }
 
-        public function load_classes(){
-            include('class-custom-cache-plugin-admin.php' );
-            include('class-custom-cache-plugin-cache.php' );
+        private function load_classes(){
+            include( 'class-custom-cache-plugin-admin.php' );
+            include( 'class-custom-cache-plugin-cache.php' );
         }
 
-        public function init(){
+        private function init(){
             $admin = new Custom_Cache_Plugin_Admin();
             $cache = new Custom_Cahe_plugin_Cache();
         }
